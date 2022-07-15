@@ -16,3 +16,9 @@ func Home() {
 		}
 	})
 }
+
+func Cats() {
+	http.HandleFunc("/cats", func(wr http.ResponseWriter, req *http.Request) {
+		//
+	})
+}

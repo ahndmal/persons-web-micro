@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-	"persons-web-micro/web"
+	web "persons-web-micro/web"
 )
 
 func main() {
