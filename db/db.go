@@ -3,6 +3,7 @@ package db
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 	"os"
 )
 
@@ -26,16 +27,24 @@ func GetCats(model interface{}) []Cat {
 	model = &Cat{}
 	db, err := InitDB()
 	if err != nil {
-
+		log.Fatal(err)
 	}
 	db.AutoMigrate(&model)
 
-	var cat Cat
 	cats := make([]Cat, 0)
 
-	db.First(&cat, "name = ?", "Murz")
-	db.Find(&cats, "name like ?", "Mu")
-	//tx := db.Select("select * from cats", "")
+	db.Find(&cats) // todo - change
 
 	return cats
+}
+
+func GetCat(id int) Cat {
+	var cat Cat
+	db, err := InitDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.AutoMigrate(&cat)
+	db.Find(cat, "id = ?", id)
+	return cat
 }
