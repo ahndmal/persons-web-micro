@@ -18,13 +18,14 @@ import (
 func Home(rout *mux.Router) {
 
 	type data struct {
-		Now time.Time
+		Now  time.Time
+		Text string
 	}
 
 	rout.HandleFunc("/", func(wr http.ResponseWriter, request *http.Request) {
 		tmpl := template.Must(template.ParseFiles("files/home.html"))
 		now := time.Now()
-		data := data{now}
+		data := data{Now: now, Text: "Hello!"}
 		err := tmpl.Execute(wr, data)
 		if err != nil {
 			return
