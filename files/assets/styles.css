@@ -1,0 +1,9 @@
+.root {
+    margin: 20px;
+    padding: 10px;
+}
+
+.cats-main {
+    display: flex;
+    flex-direction: column;
+}

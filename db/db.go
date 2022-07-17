@@ -48,3 +48,15 @@ func GetCat(id int) models.Cat {
 	db.Find(cat, "id = ?", id)
 	return cat
 }
+
+func GetCountries() []models.Country {
+	db, err := InitDB()
+	if err != nil {
+		return nil
+	}
+	var country models.Country
+	db.AutoMigrate(&country)
+	var countries []models.Country
+	db.Find(&countries)
+	return countries
+}

@@ -3,19 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Cats</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        .root {
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .cats-main {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .cat-div {
+            width: 15%;
+            background-color: antiquewhite;
+            margin: 5px;
+            padding: 3px;
+        }
+    </style>
 </head>
 <body>
-<h2>Home</h2>
+<h2>Cats</h2>
 <div class="root">
-    {{ range .Cats }}
-    <div>
-        {{ if .Name }}
-            <p>{{ .Name }}</p>
-        {{ else }}
-            <p>no name</p>
+    <div class="cats-main">
+        {{ range .Cats }}
+        <div class="cat-div">
+            <div class="cat-name">
+                {{ if .Name }}
+                <p>{{ .Name }}</p>
+                {{ else }}
+                <p>no name</p>
+                {{ end }}
+            </div>
+            <div>
+                <p>{{ .Age }}</p>
+                <p>{{ .Color }}</p>
+                <p>{{ .Breed }}</p>
+                <p>{{ .Origin }}</p>
+            </div>
+        </div>
         {{ end }}
     </div>
-    {{ end }}
-</div>
+    </div>
+<script type="text/javascript">
+    const catsRoot = document.querySelector(".cats-main");
+    fetch("/rest/api/cats").then(res => res.json()).then(res => {
+        console.log(res)
+    });
+</script>
 </body>
 </html>

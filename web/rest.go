@@ -11,7 +11,7 @@ import (
 )
 
 func Cats(rout *mux.Router) {
-	rout.HandleFunc("rest/api/cats", func(wr http.ResponseWriter, req *http.Request) {
+	rout.HandleFunc("/rest/api/cats", func(wr http.ResponseWriter, req *http.Request) {
 		var cats []models.Cat
 		cats = db.GetCats(models.Cat{})
 		jsonCats, err := json.Marshal(cats)
@@ -26,7 +26,7 @@ func Cats(rout *mux.Router) {
 }
 
 func CatById(rout *mux.Router) {
-	rout.HandleFunc("rest/api/cats/{id}", func(wr http.ResponseWriter, req *http.Request) {
+	rout.HandleFunc("/rest/api/cats/{id}", func(wr http.ResponseWriter, req *http.Request) {
 		vars := mux.Vars(req)
 		idS := vars["id"]
 		id, err := strconv.Atoi(idS)
@@ -40,6 +40,20 @@ func CatById(rout *mux.Router) {
 		}
 		_, err2 := fmt.Fprint(wr, catJson)
 		if err2 != nil {
+			return
+		}
+	})
+}
+
+func CountriesRest(rout *mux.Router) {
+	rout.HandleFunc("/rest/api/country", func(wr http.ResponseWriter, req *http.Request) {
+		countries := db.GetCountries()
+		jsonCountr, err := json.Marshal(countries)
+		if err != nil {
+			return
+		}
+		_, err = fmt.Fprint(wr, string(jsonCountr))
+		if err != nil {
 			return
 		}
 	})

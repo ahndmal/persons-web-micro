@@ -43,6 +43,25 @@ type Person struct {
 }
 
 type Country struct {
+	Id            int    `json:"id" json:"id,omitempty"`
+	CountryId     string `json:"country_id,omitempty"`
+	Area          int64  `json:"area" json:"area,omitempty"`
+	Population    int64  `json:"population,omitempty"`
+	Status        string `json:"status,omitempty"`
+	UnMember      string `json:"un_member,omitempty"`
+	Cca2          string `json:"cca2,omitempty"`
+	Code          string `json:"code,omitempty"`
+	Name          string `json:"name,omitempty"`
+	ContinentName string `json:"continent_name,omitempty"`
+	Region        string `json:"region,omitempty"`
+	Capital       string `json:"capital,omitempty"`
+	Languages     string `json:"languages,omitempty"`
+	Borders       string `json:"borders,omitempty"`
+	Continents    string `json:"continents,omitempty"`
+	Independent   bool   `json:"Independent,omitempty"`
+}
+
+type CountryJson struct {
 	Name struct {
 		Common     string `json:"common"`
 		Official   string `json:"official"`
@@ -70,18 +89,8 @@ type Country struct {
 	Landlocked bool     `json:"landlocked"`
 	Borders    []string `json:"borders"`
 	Area       int      `json:"area"`
-	Demonyms   struct {
-		Eng struct {
-			F string `json:"f"`
-			M string `json:"m"`
-		} `json:"eng"`
-		Fra struct {
-			F string `json:"f"`
-			M string `json:"m"`
-		} `json:"fra"`
-	} `json:"demonyms"`
-	Flag string `json:"flag"`
-	Maps struct {
+	Flag       string   `json:"flag"`
+	Maps       struct {
 		GoogleMaps     string `json:"googleMaps"`
 		OpenStreetMaps string `json:"openStreetMaps"`
 	} `json:"maps"`
@@ -109,4 +118,12 @@ type Country struct {
 		Format string `json:"format"`
 		Regex  string `json:"regex"`
 	} `json:"postalCode"`
+}
+
+type Comment struct {
+	Id        int64     `json:"id,omitempty"`
+	Body      string    `json:"body,omitempty"`
+	Category  string    `json:"category,omitempty"`
+	CreatedAt time.Time `json:"createdAt"`
+	AuthorId  int64     `json:"author_id" json:"authorId,omitempty"`
 }
