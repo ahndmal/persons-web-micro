@@ -9,7 +9,10 @@ import (
 
 func main() {
 	rout := mux.NewRouter()
+	//html
 	web.Home(rout)
+	web.CatsHtml(rout)
+	//rest
 	web.Cats(rout)
 	web.CatById(rout)
 	err := http.ListenAndServe(":8082", rout)

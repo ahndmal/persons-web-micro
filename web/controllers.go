@@ -1,12 +1,10 @@
 package web
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 	"persons-web-micro/db"
-	"strconv"
+	"persons-web-micro/models"
 	"text/template"
 	"time"
 )
@@ -31,34 +29,20 @@ func Home(rout *mux.Router) {
 			return
 		}
 	})
+
 }
 
-func Cats(rout *mux.Router) {
-	rout.HandleFunc("/cats", func(wr http.ResponseWriter, req *http.Request) {
-		var cats []db.Cat
-		cats = db.GetCats(db.Cat{})
-		_, err := fmt.Fprintln(wr, cats)
-		if err != nil {
-			return
-		}
-	})
-}
+func CatsHtml(rout *mux.Router) {
+	type data struct {
+		Cats []models.Cat
+	}
 
-func CatById(rout *mux.Router) {
-	rout.HandleFunc("/cats/{id}", func(wr http.ResponseWriter, req *http.Request) {
-		vars := mux.Vars(req)
-		idS := vars["id"]
-		id, err := strconv.Atoi(idS)
+	rout.HandleFunc("/cats", func(writer http.ResponseWriter, req *http.Request) {
+		tmpl := template.Must(template.ParseFiles("files/cats.html"))
+		cats := db.GetCats(nil)
+		data := data{cats}
+		err := tmpl.Execute(writer, data)
 		if err != nil {
-			return
-		}
-		cat := db.GetCat(id)
-		catJson, err := json.Marshal(cat)
-		if err != nil {
-			return
-		}
-		_, err2 := fmt.Fprint(wr, catJson)
-		if err2 != nil {
 			return
 		}
 	})
